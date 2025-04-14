@@ -1,0 +1,80 @@
+﻿<Window x:Class="YugiohTradingCars.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YugiohTradingCars"
+        xmlns:viewModel="clr-namespace:YugiohTradingCars.MVVM.ViewModels"
+        xmlns:view="clr-namespace:YugiohTradingCars.MVVM.Pages"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <view:HomePage />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:TestViewModel}">
+            <view:TestPage />
+        </DataTemplate>
+
+        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="10"
+                                x:Name="ButtonBorder">
+
+                            <ContentPresenter x:Name="content" 
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" >
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightBlue"/>
+                            </Trigger>
+           
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding GlobalUserMessage}"/>
+
+        <DockPanel  Grid.Row="1" Grid.Column="0">
+            <Border BorderBrush="black" BorderThickness="1">
+                <Expander ExpandDirection="Left" IsExpanded="true">
+
+                    <StackPanel>
+                        <Button Style="{StaticResource ButtonStyle}" Content="Home" Command="{Binding ShowHomeCommand}" Margin="5"/>
+                        <Button Style="{StaticResource ButtonStyle}" Content="Test" Command="{Binding ShowTestCommand}" Margin="5"/>
+                    </StackPanel>
+                </Expander>
+            </Border>
+
+            <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
+    </Grid>
+</Window>
