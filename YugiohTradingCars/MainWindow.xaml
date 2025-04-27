@@ -17,8 +17,8 @@
             <view:HomePage />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:TestViewModel}">
-            <view:TestPage />
+        <DataTemplate DataType="{x:Type viewModel:CardViewModel}">
+            <view:Cards />
         </DataTemplate>
 
         <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
@@ -53,28 +53,30 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding GlobalUserMessage}"/>
-
-        <DockPanel  Grid.Row="1" Grid.Column="0">
+        <DockPanel Grid.Row="0" Grid.Column="0">
             <Border BorderBrush="black" BorderThickness="1">
                 <Expander ExpandDirection="Left" IsExpanded="true">
 
                     <StackPanel>
                         <Button Style="{StaticResource ButtonStyle}" Content="Home" Command="{Binding ShowHomeCommand}" Margin="5"/>
-                        <Button Style="{StaticResource ButtonStyle}" Content="Test" Command="{Binding ShowTestCommand}" Margin="5"/>
+                        <Button Style="{StaticResource ButtonStyle}" Content="Cards" Command="{Binding ShowTestCommand}" Margin="5"/>
                     </StackPanel>
                 </Expander>
             </Border>
 
             <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
+        
+        <DockPanel Grid.Row="1" Grid.Column="0" Height="23">
+            <Label Content="{Binding GlobalUserMessage}"/>
         </DockPanel>
     </Grid>
 </Window>

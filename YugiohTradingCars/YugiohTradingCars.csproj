@@ -12,4 +12,8 @@
     <ProjectReference Include="..\YugiyohApiHandler\YugiyohApiHandler.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Classes\" />
+  </ItemGroup>
+
 </Project>

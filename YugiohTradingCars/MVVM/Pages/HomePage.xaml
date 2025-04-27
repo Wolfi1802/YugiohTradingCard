@@ -19,6 +19,9 @@
         <Binding Source="{StaticResource ViewModel}" x:Name="vm"/>
     </Page.DataContext>
 
+    <StackPanel>
+        <Label Content="home page"/>
+        <Button Content="Zeige Message" Command="{Binding ShowMessage}" Margin="5"/>
+    </StackPanel>
 
-    <Label Content="home page"/>
 </Page>

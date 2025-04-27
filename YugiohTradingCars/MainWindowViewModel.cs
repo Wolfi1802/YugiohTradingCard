@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using YugiohTradingCars.MVVM;
 using YugiohTradingCars.MVVM.ViewModels;
+using YugiohTradingCars.Repositorys;
 
 namespace YugiohTradingCars
 {
@@ -20,25 +21,14 @@ namespace YugiohTradingCars
             get => GetProperty<string>(nameof(GlobalUserMessage));
         }
 
-        public static EventHandler ClosePageEvent;
-        public static EventHandler<string> SendUserMessageEvent;
-
         public HomeViewModel HomeViewModel = new HomeViewModel();
-        public TestViewModel TestViewModel = new TestViewModel();
+        public CardViewModel CardViewModel = new CardViewModel();
+        private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
         {
             this.CurrentPage = this.HomeViewModel;
-
-            ClosePageEvent += (o, e) =>
-            {
-                this.ShowHomeCommand.Execute(null);
-            };
-
-            SendUserMessageEvent += (o, e) =>
-            {
-                this.GlobalUserMessage = e;
-            };
+            this.eventRepository.MainWindowMessage += this.OnMainWindowMessage;
         }
 
         public ICommand ShowHomeCommand => new RelayCommand(param =>
@@ -57,12 +47,18 @@ namespace YugiohTradingCars
         {
             try
             {
-                this.CurrentPage = this.TestViewModel;
+                this.CurrentPage = this.CardViewModel;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowTestCommand)},\nEX :[{ex}]");
             }
         });
+
+        private void OnMainWindowMessage(object sender, string? message)
+        {
+            if (!string.IsNullOrEmpty(message))
+                this.GlobalUserMessage = message;
+        }
     }
 }

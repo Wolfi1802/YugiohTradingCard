@@ -2,7 +2,7 @@
 using YugiyohApiHandler;
 using YugiyohApiHandler.DataModels;
 
-namespace YugiohTradingCars
+namespace YugiohTradingCars.Repositorys
 {
     public class CardRepository
     {
@@ -22,17 +22,17 @@ namespace YugiohTradingCars
         private ApiManager ApiManager = new();
         private CardRepository()
         {
-            this.LoadDatas();
+            LoadDatas();
         }
 
         public ObservableCollection<Card> Get()
         {
-            return new (CardData);
+            return new(CardData);
         }
 
-private async Task LoadDatas()
+        private async Task LoadDatas()
         {
-            CardData = new(await this.ApiManager.Get());
+            CardData = new(await ApiManager.Get());
         }
 
 

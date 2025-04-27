@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace YugiohTradingCars.MVVM.Pages
 {
     /// <summary>
-    /// Interaktionslogik für TestPage.xaml
+    /// Interaktionslogik für Cards.xaml
     /// </summary>
-    public partial class TestPage : Page
+    public partial class Cards : Page
     {
-        public TestPage()
+        public Cards()
         {
             InitializeComponent();
         }

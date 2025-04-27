@@ -1,14 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler;
 using YugiyohApiHandler.DataModels;
 
 namespace YugiohTradingCars.MVVM.ViewModels
 {
-    public class TestViewModel : ViewModelBase
+    public class CardViewModel : ViewModelBase
     {
-        public TestViewModel()
+        public CardViewModel()
         {
             this.CardDatas = CardRepository.Instance.Get();
         }
