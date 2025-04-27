@@ -16,8 +16,6 @@ namespace YugiohTradingCars.MVVM.ViewModels
 
         public ObservableCollection<Card> CardDatas { set; get; } = new();
 
-
-
         public ICommand ShowDatas => new RelayCommand(param =>
         {
             try
