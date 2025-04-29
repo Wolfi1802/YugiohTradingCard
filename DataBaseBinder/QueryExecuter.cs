@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 
 namespace DataBaseBinder
@@ -24,8 +25,6 @@ namespace DataBaseBinder
             try
             {
                 this.DbConnection = connection;
-
-                this.BuildDataBase();//TODO[TS] Check ob db schon vorhanden ist sonst erstellen, gibt aber probleme bei der connection...
             }
             catch (Exception ex)
             {
@@ -135,36 +134,64 @@ namespace DataBaseBinder
         {
             this.currentException = null;
 
-            using (MySqlConnection connection = this.DbConnection)
+            //OpenConnection();
+            //using (var command = new MySqlCommand(queryString, this.DbConnection))
+            //{
+            //    command.ExecuteNonQuery();
+            //}
+            //CloseConnection();
+
+            #region OLD
+
+            //using (MySqlConnection connection = this.DbConnection)
+            //{
+            //    try
+            //    {
+            //        this.OpenConnection();
+
+            //        MySqlDataAdapter adr = new MySqlDataAdapter(queryString, connection);
+            //        adr.SelectCommand.CommandType = CommandType.Text;
+            //        DataTable actualldata = new DataTable();
+            //        adr.Fill(actualldata);
+
+
+            //        return actualldata;
+            //    }
+            //    catch (Exception ex)//TODO[TS] nach dem ersten Query : The connection had been disposed. 
+            //    {
+            //        this.currentException = ex;
+
+            //        return null;
+            //    }
+            //    finally
+            //    {
+            //        this.CloseConnection();
+            //    }
+            //}
+
+            #endregion
+        }
+
+        public void BuildDataBase()
+        {
+            //TODO[TS] Check ob db schon vorhanden ist sonst erstellen, gibt aber probleme bei der connection...
+            this.Execute(CREATE_TABLE_CARDS);
+        }
+
+        private void OpenConnection()
+        {
+            if (this.DbConnection.State == System.Data.ConnectionState.Closed)
             {
-                try
-                {
-                    connection.Open();//TODO[TS] rework, schlechter style die verbindung dauerhaft offen zu lassen
-
-                    MySqlDataAdapter adr = new MySqlDataAdapter(queryString, connection);
-                    adr.SelectCommand.CommandType = CommandType.Text;
-                    DataTable actualldata = new DataTable();
-                    adr.Fill(actualldata);
-
-
-                    return actualldata;
-                }
-                catch (Exception ex)//TODO[TS] nach dem ersten Query : The connection had been disposed. 
-                {
-                    this.currentException = ex;
-
-                    return null;
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                this.DbConnection.Open();
             }
         }
 
-        private void BuildDataBase()
+        private void CloseConnection()
         {
-            this.Execute(CREATE_TABLE_CARDS);
+            if (this.DbConnection.State == System.Data.ConnectionState.Open)
+            {
+                this.DbConnection.Close();
+            }
         }
 
     }

@@ -23,7 +23,8 @@ namespace DataBaseBinder
         private DBRepository()
         {
             this.currentConnection = this.DBConnector.GetConnection(DBConnector.DB_NAME);
-
+            QueryExecuter queryExecuter = new QueryExecuter(this.currentConnection);
+            queryExecuter.BuildDataBase();
         }
 
         public void LoadDatas()
@@ -31,6 +32,7 @@ namespace DataBaseBinder
             if (this.IsConnectionAvialable())
             {
                 QueryExecuter queryExecuter = new QueryExecuter(this.currentConnection);
+
                 var datas = queryExecuter.GetAllContentFromDatabase(DBConnector.DB_NAME);//[TS] TEST um daten zu beziehen
             }
         }
