@@ -19,7 +19,7 @@ namespace DataBaseBinder
 
         private DBConnector DBConnector { get { return DBConnector.Instance; } }
 
-        private MySqlConnection? currentConnection = null;
+        private string? currentConnection = null;
         private DBRepository()
         {
             this.currentConnection = this.DBConnector.GetConnection(DBConnector.DB_NAME);

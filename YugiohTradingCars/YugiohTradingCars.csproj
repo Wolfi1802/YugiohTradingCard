@@ -9,16 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Classes\**" />
+    <EmbeddedResource Remove="Classes\**" />
+    <None Remove="Classes\**" />
+    <Page Remove="Classes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\yugiyoh.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataBaseBinder\DataBaseBinder.csproj" />
     <ProjectReference Include="..\YugiyohApiHandler\YugiyohApiHandler.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Classes\" />
   </ItemGroup>
 
   <ItemGroup>

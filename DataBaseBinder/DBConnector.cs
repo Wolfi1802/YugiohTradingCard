@@ -1,15 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataBaseBinder
+﻿namespace DataBaseBinder
 {
     internal class DBConnector
     {
-        private Dictionary<string, MySqlConnection> connections = new Dictionary<string, MySqlConnection>();
+        private Dictionary<string, string> connections = new Dictionary<string, string>();
 
         private static DBConnector _instance;
         public static DBConnector Instance
@@ -26,12 +19,12 @@ namespace DataBaseBinder
         internal const string DB_NAME = "YuGiYohTradingCards";
         private DBConnector()
         {
-            MySqlConnection yuGiYohTradingCards = new MySqlConnection($"server=localhost;user id=root;password=;database={DB_NAME};");
+            string yuGiYohTradingCards = $"server=localhost;user id=root;password=;database={DB_NAME};";
 
             this.connections.Add(DB_NAME, yuGiYohTradingCards);
         }
 
-        public MySqlConnection? GetConnection(string dataBaseName)
+        public string? GetConnection(string dataBaseName)
         {
             foreach (var item in this.connections)
             {
@@ -42,7 +35,7 @@ namespace DataBaseBinder
             return null;
         }
 
-        public Dictionary<string, MySqlConnection> GetAllConnections()
+        public Dictionary<string, string> GetAllConnections()
         {
             return this.connections;
         }
@@ -57,7 +50,7 @@ namespace DataBaseBinder
                 throw new NullReferenceException($" Hinzufügen nicht möglich weil [{database}] == null");
 
             if (!this.connections.ContainsKey(database))
-                this.connections.Add(database, new MySqlConnection($"server={server};user id={userId};password={password};database={database};"));
+                this.connections.Add(database, $"server={server};user id={userId};password={password};database={database};");
         }
     }
 }

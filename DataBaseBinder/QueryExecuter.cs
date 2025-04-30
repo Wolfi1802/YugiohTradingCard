@@ -1,100 +1,26 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Data.Common;
-using System.Diagnostics;
 
 namespace DataBaseBinder
 {
     internal class QueryExecuter
-    {//TODO[TS] Logging
-        private const string SELECT_ALL_ = "SELECT * FROM ";
+    {
+        //TODO[TS] Logging
+        private string? DbConnectionString = null;
 
-        #region BD zusammenabuen
-
-        private const string CREATE_TABLE_CARDS = @"CREATE TABLE `Cards` (
-        `ID` int(11) NOT NULL AUTO_INCREMENT,
-        PRIMARY KEY (`ID`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
-        #endregion
-
-        private MySqlConnection DbConnection = null;
-        private Exception currentException = null;
-        public QueryExecuter(MySqlConnection connection)
+        public QueryExecuter(string connection)
         {
             try
             {
-                this.DbConnection = connection;
+                this.DbConnectionString = connection;
             }
             catch (Exception ex)
             {
             }
-
         }
 
-        public string GetFormatedDataTable(DataTable queryResult)
-        {
-            var formateTable = this.ReadDataTable(queryResult);
-            string headline = string.Empty;
-            string tableValues = string.Empty;
 
-            if (queryResult != null)
-            {
-                foreach (var item in formateTable)
-                {
-                    foreach (var innerItem in item)
-                    {
-                        if (!headline.Contains(innerItem.Item1))
-                            headline += $"{innerItem.Item1}".PadRight(10);
-
-                        tableValues += $"{innerItem.Item2}".PadRight(10);
-                    }
-
-                    tableValues += "\n";
-                }
-
-
-                int tempHeaderLength = headline.Length;
-                headline += "\n";
-
-                for (int i = 0; i < tempHeaderLength; i++)
-                {
-                    headline += "_";
-                }
-
-                return $"```\n{queryResult.TableName}\n\n{headline}\n{tableValues}```";
-            }
-            else if (this.currentException != null)
-                return this.currentException.Message;
-            else
-                return null;
-        }
-
-        public List<List<(string, string)>> ReadDataTable(DataTable queryResult)
-        {
-            if (queryResult != null)
-            {
-                List<List<(string, string)>> results = new List<List<(string, string)>>();
-
-                foreach (DataRow row in queryResult.Rows)
-                {
-                    List<(string, string)> rowList = new List<(string, string)>();
-
-                    foreach (var column in queryResult.Columns)
-                    {
-                        string value = row[column.ToString()].ToString();
-                        rowList.Add((column.ToString(), value));
-                    }
-                    results.Add(rowList);
-                }
-
-                return results;
-            }
-
-            return null;
-        }
-
-        public List<DataTable> GetAllContentFromDatabase(string databaseName)
+        public List<DataTable>? GetAllContentFromDatabase(string databaseName)
         {
             List<DataTable> listOftables = new List<DataTable>();
 
@@ -104,95 +30,85 @@ namespace DataBaseBinder
                 $"AND table_schema = '{databaseName}'";
 
             var result = this.Execute(queryString);
-
-            if (result != null)
+            try
             {
-                foreach (DataRow row in result.Rows)
+
+                if (result != null)
                 {
-                    string tableName = row.ItemArray[0].ToString();
+                    foreach (DataRow row in result.Rows)
+                    {
+                        string tableName = row.ItemArray[0].ToString();
 
-                    var tableResult = this.GetSelectTable(tableName, databaseName);
+                        var tableResult = this.GetSelectTable(tableName, databaseName);
 
-                    if (tableResult != null)
-                        listOftables.Add(tableResult);
+                        if (tableResult != null)
+                            listOftables.Add(tableResult);
+                    }
+
+                    return listOftables;
                 }
+            }
+            catch(Exception ex)
+            {
 
-                return listOftables;
             }
 
             return null;
         }
 
-        public DataTable GetSelectTable(string tableName, string databaseName)
+        /// <summary>
+        /// Holt sich alle informationen ohne Einschränkung aus der db <paramref name="databaseName"/> bzw. der Tabelle <paramref name="tableName"/>
+        /// </summary>
+        /// <param name="tableName">Name der Tabelle</param>
+        /// <param name="databaseName">Name der Datenbank</param>
+        /// <returns>Gibt die Ergebnisse zurück</returns>
+        public DataTable? GetSelectTable(string tableName, string databaseName)
         {
-            string queryString = $"{SELECT_ALL_} {databaseName}.{tableName};";
+            string queryString = $"{QueryConsts.SELECT_ALL_} {databaseName}.{tableName};";
 
             return this.Execute(queryString);
         }
 
-        public DataTable Execute(string queryString)
+        /// <summary>
+        /// Führt den Query <paramref name="queryString"/> auf Basis der DB <paramref name="DbConnectionString"/> aus.
+        /// </summary>
+        /// <param name="queryString">Query der ausgeführt werden soll</param>
+        /// <returns>Ergebniss des Querys</returns>
+        public DataTable? Execute(string queryString)
         {
-            this.currentException = null;
+            using (MySqlConnection connection = new MySqlConnection(this.DbConnectionString))//[TS] Hier machen wir immer eine neue instanz, da die Verbindung nicht wiederverwendet werden kann, weuil sie nach einem Query automatisch disposed wird.
+            {
+                try
+                {
+                    connection.Open();
+                    
+                    MySqlDataAdapter adr = new MySqlDataAdapter(queryString, connection);
+                    adr.SelectCommand.CommandType = CommandType.Text;
+                    DataTable actualldata = new DataTable();
+                    adr.Fill(actualldata);
 
-            //OpenConnection();
-            //using (var command = new MySqlCommand(queryString, this.DbConnection))
-            //{
-            //    command.ExecuteNonQuery();
-            //}
-            //CloseConnection();
-
-            #region OLD
-
-            //using (MySqlConnection connection = this.DbConnection)
-            //{
-            //    try
-            //    {
-            //        this.OpenConnection();
-
-            //        MySqlDataAdapter adr = new MySqlDataAdapter(queryString, connection);
-            //        adr.SelectCommand.CommandType = CommandType.Text;
-            //        DataTable actualldata = new DataTable();
-            //        adr.Fill(actualldata);
-
-
-            //        return actualldata;
-            //    }
-            //    catch (Exception ex)//TODO[TS] nach dem ersten Query : The connection had been disposed. 
-            //    {
-            //        this.currentException = ex;
-
-            //        return null;
-            //    }
-            //    finally
-            //    {
-            //        this.CloseConnection();
-            //    }
-            //}
-
-            #endregion
+                    return actualldata;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
 
+        /// <summary>
+        /// Baut die Datenbank in einer bestimmten Reihenfolge auf.
+        /// </summary>
         public void BuildDataBase()
         {
-            //TODO[TS] Check ob db schon vorhanden ist sonst erstellen, gibt aber probleme bei der connection...
-            this.Execute(CREATE_TABLE_CARDS);
+            this.Execute(QueryConsts.CREATE_TABLE_CARDS);
+            this.Execute(QueryConsts.CREATE_TABLE_CUSTOMERS);
         }
 
-        private void OpenConnection()
-        {
-            if (this.DbConnection.State == System.Data.ConnectionState.Closed)
-            {
-                this.DbConnection.Open();
-            }
-        }
-
-        private void CloseConnection()
-        {
-            if (this.DbConnection.State == System.Data.ConnectionState.Open)
-            {
-                this.DbConnection.Close();
-            }
-        }
 
     }
 }
