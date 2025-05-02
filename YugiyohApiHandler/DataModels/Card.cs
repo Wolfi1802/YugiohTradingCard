@@ -19,9 +19,13 @@ namespace YugiyohApiHandler.DataModels
         public string? Attribute { get; set; }
         public string? Archetype { get; set; }
         public string? YgoprodeckUrl { get; set; }
-        public CardSet CardSets { get; set; }
-        public BanlistInfo BanlistInfo { get; set; }
-        public CardImage CardImages { get; set; }
+
+        [JsonPropertyName("card_sets")]
+        public List<CardSet> CardSets { get; set; }
+
+        [JsonPropertyName("card_images")]
+        public List<CardImage> CardImages { get; set; }
+
         [JsonPropertyName("card_prices")]
         public List<CardPrice> CardPrices { get; set; }
     }
