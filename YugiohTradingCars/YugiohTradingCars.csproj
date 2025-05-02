@@ -43,4 +43,11 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="WPFGlobalStyles\Button\ButtonStyles.xaml">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ButtonStyles.Designer.cs</LastGenOutput>
+    </Page>
+  </ItemGroup>
+
 </Project>

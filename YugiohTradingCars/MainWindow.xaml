@@ -13,46 +13,32 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-            <view:HomePage />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <DataTemplate DataType="{x:Type viewModel:CardViewModel}">
-            <view:Cards />
-        </DataTemplate>
+            <DataTemplate x:Key="PersonDataTemplate">
+                <DockPanel>
+                    <TextBlock Text="{Binding Age}" Margin="5"/>
+                    <TextBlock Text="{Binding PreName}" Margin="5"/>
+                    <TextBlock Text="{Binding Name}" Margin="5"/>
+                </DockPanel>
+            </DataTemplate>
 
-        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                CornerRadius="10"
-                                x:Name="ButtonBorder">
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomePage />
+            </DataTemplate>
 
-                            <ContentPresenter x:Name="content" 
-                                              HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True" >
-                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightBlue"/>
-                            </Trigger>
-           
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <DataTemplate DataType="{x:Type viewModel:CardViewModel}">
+                <view:Cards />
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid Grid.Row="0" Grid.Column="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -61,21 +47,25 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.Column="0">
-            <Border BorderBrush="black" BorderThickness="1">
-                <Expander ExpandDirection="Left" IsExpanded="true">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-                    <StackPanel>
-                        <Button Style="{StaticResource ButtonStyle}" Content="Home" Command="{Binding ShowHomeCommand}" Margin="5"/>
-                        <Button Style="{StaticResource ButtonStyle}" Content="Cards" Command="{Binding ShowTestCommand}" Margin="5"/>
-                    </StackPanel>
-                </Expander>
-            </Border>
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="Home" Command="{Binding ShowHomeCommand}" Margin="5"/>
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="Cards" Command="{Binding ShowTestCommand}" Margin="5"/>
+        </Grid>
 
+        <DockPanel Grid.Row="1" Grid.Column="0" >
             <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
         </DockPanel>
-        
-        <DockPanel Grid.Row="1" Grid.Column="0" Height="23">
+
+
+        <DockPanel Grid.Row="2" Grid.Column="0" Height="23">
             <Label Content="{Binding GlobalUserMessage}"/>
         </DockPanel>
     </Grid>

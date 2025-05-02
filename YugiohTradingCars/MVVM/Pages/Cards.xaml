@@ -12,6 +12,10 @@
     <Page.Resources>
         <ResourceDictionary>
             <viewModel:CardViewModel x:Key="ViewModel"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
