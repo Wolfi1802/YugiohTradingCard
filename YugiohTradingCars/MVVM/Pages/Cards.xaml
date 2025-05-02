@@ -26,13 +26,15 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
-        
+
         <Button Grid.Column="0" Grid.Row="0" Content="Show Datas" Command="{Binding ShowDatas}"/>
 
         <DockPanel Grid.Column="0" Grid.Row="1">
@@ -40,7 +42,7 @@
             <Label Content="{Binding CardDatas.Count}"/>
         </DockPanel>
 
-        <ListView Grid.Column="0" Grid.Row="2" ItemsSource="{Binding CardDatas}">
+        <ListView Grid.Column="0" Grid.Row="2" ItemsSource="{Binding CardDatas}" SelectedItem="{Binding SelectedCard}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID">
@@ -50,17 +52,6 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
-                    <!--Die Bilder zeigen wir nur im detailfenster an, sonst riskieren wir eine api sperre bis sie gespeichert sind.-->
-                    <!--<GridViewColumn Header="Bild" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Image Source="{Binding ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
 
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
@@ -150,6 +141,33 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
+        <Border Grid.Column="1" Grid.Row="2" Visibility="{Binding DetailsVisibility}" BorderBrush="LightBlue" BorderThickness="5" Margin="5">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Details" Margin="5" FontSize="30" HorizontalAlignment="Center"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="20"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedCard.Card.Name}" FontSize="20"/>
+                </Grid>
+
+                <StackPanel Width="400" Margin="5">
+                    <Image Source="{Binding SelectedCard.ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
+                </StackPanel>
+                
+                <Button Content="Close Details" Command="{Binding CloseDetails}" Style="{StaticResource ButtonStyle}"/>
+            </StackPanel>
+        </Border>
+
     </Grid>
 
 </Page>

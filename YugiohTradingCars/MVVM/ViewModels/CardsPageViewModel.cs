@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
-using YugiyohApiHandler;
 using YugiyohApiHandler.DataModels;
 
 namespace YugiohTradingCars.MVVM.ViewModels
@@ -12,6 +12,8 @@ namespace YugiohTradingCars.MVVM.ViewModels
     {
         public CardsPageViewModel()
         {
+            this.ShowDetails(false);//[TS] Default immer überschreiben
+
             foreach (Card card in CardRepository.Instance.Get())
             {
                 this.CardDatas.Add(new(card));
@@ -20,15 +22,59 @@ namespace YugiohTradingCars.MVVM.ViewModels
 
         public ObservableCollection<CardViewModel> CardDatas { set; get; } = new();
 
+        public CardViewModel SelectedCard
+        {
+            set
+            {
+                if (value is not null && this.SelectedCard != value)
+                    this.ShowDetails(true);
+                else
+                    this.ShowDetails(false);
+
+                base.SetProperty(nameof(this.SelectedCard), value);
+            }
+            get => base.GetProperty<CardViewModel>(nameof(this.SelectedCard));
+        }
+
+        public Visibility DetailsVisibility
+        {
+            set => SetProperty(nameof(DetailsVisibility), value);
+            get => GetProperty<Visibility>(nameof(DetailsVisibility));
+        }
+
+        /// <summary>
+        /// Steuert die Anzeige der Details
+        /// </summary>
+        /// <param name="isVisible"></param>
+        private void ShowDetails(bool isVisible)
+        {
+            //TODO[TS] umbauen und als extra fenster anzeigen ?
+            this.DetailsVisibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+
         public ICommand ShowDatas => new RelayCommand(param =>
         {
             try
             {
-                
+
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowDatas)},\nEX :[{ex}]");
+                Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(ShowDatas)},\nEX :[{ex}]");
+            }
+        });
+
+        public ICommand CloseDetails => new RelayCommand(param =>
+        {
+            try
+            {
+                this.ShowDetails(false);
+                this.SelectedCard = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(CloseDetails)},\nEX :[{ex}]");
             }
         });
     }
