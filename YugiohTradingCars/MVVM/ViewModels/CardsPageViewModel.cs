@@ -1,20 +1,24 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler;
 using YugiyohApiHandler.DataModels;
 
 namespace YugiohTradingCars.MVVM.ViewModels
 {
-    public class CardViewModel : ViewModelBase
+    public class CardsPageViewModel : ViewModelBase
     {
-        public CardViewModel()
+        public CardsPageViewModel()
         {
-            this.CardDatas = CardRepository.Instance.Get();
+            foreach (Card card in CardRepository.Instance.Get())
+            {
+                this.CardDatas.Add(new(card));
+            }
         }
 
-        public ObservableCollection<Card> CardDatas { set; get; } = new();
+        public ObservableCollection<CardViewModel> CardDatas { set; get; } = new();
 
         public ICommand ShowDatas => new RelayCommand(param =>
         {

@@ -6,7 +6,7 @@ using YugiohTradingCars.Repositorys;
 
 namespace YugiohTradingCars.MVVM.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomePageViewModel : ViewModelBase
     {
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
         private DBRepository dbRepository { get { return DBRepository.Instance; } }
@@ -20,7 +20,7 @@ namespace YugiohTradingCars.MVVM.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{nameof(HomeViewModel)},{nameof(ShowMessage)},\nEX :[{ex}]");
+                Debug.WriteLine($"{nameof(HomePageViewModel)},{nameof(ShowMessage)},\nEX :[{ex}]");
             }
         });
     }

@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <viewModel:HomeViewModel x:Key="ViewModel"/>
+            <viewModel:HomePageViewModel x:Key="ViewModel"/>
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>

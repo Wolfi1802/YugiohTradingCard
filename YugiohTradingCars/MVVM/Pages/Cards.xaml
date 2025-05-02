@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <viewModel:CardViewModel x:Key="ViewModel"/>
+            <viewModel:CardsPageViewModel x:Key="ViewModel"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
@@ -46,25 +46,26 @@
                     <GridViewColumn Header="ID">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Id}"/>
+                                <Label Content="{Binding Card.Id}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Bild" Width="100">
+                    <!--Die Bilder zeigen wir nur im detailfenster an, sonst riskieren wir eine api sperre bis sie gespeichert sind.-->
+                    <!--<GridViewColumn Header="Bild" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Image Source="{Binding CardImages.ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
+                                    <Image Source="{Binding ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    </GridViewColumn>-->
 
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Name}"/>
+                                <Label Content="{Binding Card.Name}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -72,7 +73,7 @@
                     <GridViewColumn Header="Atk">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Atk}"/>
+                                <Label Content="{Binding Card.Atk}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -80,7 +81,7 @@
                     <GridViewColumn Header="Def">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Def}"/>
+                                <Label Content="{Binding Card.Def}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -88,7 +89,7 @@
                     <GridViewColumn Header="Level">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Level}"/>
+                                <Label Content="{Binding Card.Level}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -97,7 +98,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <ListView ItemsSource="{Binding CardPrices}">
+                                    <ListView ItemsSource="{Binding Card.CardPrices}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="AmazonPrice">

@@ -21,8 +21,8 @@ namespace YugiohTradingCars
             get => GetProperty<string>(nameof(GlobalUserMessage));
         }
 
-        public HomeViewModel HomeViewModel = new HomeViewModel();
-        public CardViewModel CardViewModel = new CardViewModel();
+        public HomePageViewModel HomeViewModel = new HomePageViewModel();
+        public CardsPageViewModel CardViewModel = new CardsPageViewModel();
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
