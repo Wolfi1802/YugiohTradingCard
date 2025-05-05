@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace DataBaseBinder
 {
@@ -35,6 +36,18 @@ namespace DataBaseBinder
 
                 var datas = queryExecuter.GetAllContentFromDatabase(DBConnector.DB_NAME);//[TS] TEST um daten zu beziehen
             }
+        }
+
+        public DataTable ExecuteQuery(string query)
+        {
+            if (this.IsConnectionAvialable())
+            {
+                QueryExecuter queryExecuter = new QueryExecuter(this.currentConnection);
+
+                return queryExecuter.Execute(query);//[TS] TEST um daten zu beziehen
+            }
+
+            return null;
         }
 
         private bool IsConnectionAvialable()

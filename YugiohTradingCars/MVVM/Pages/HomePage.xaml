@@ -12,7 +12,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <viewModel:HomePageViewModel x:Key="ViewModel"/>
-            
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -23,9 +23,35 @@
         <Binding Source="{StaticResource ViewModel}" x:Name="vm"/>
     </Page.DataContext>
 
-    <StackPanel>
-        <Label Content="home page"/>
-        <Button Content="Zeige Message" Command="{Binding ShowMessage}" Margin="5"/>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Query:"/>
+                <TextBox Text="{Binding QueryText}" Margin="5" Height="200"/>
+                <Button Content="Execute Query" Command="{Binding ExecuteQuery}" Margin="5"/>
+            </StackPanel>
+            
+            <Label Content="{Binding TableResult}"/>
+
+            <ListView x:Name="ListViewWidth" Grid.Row="0" ItemsSource="{Binding CurrentTables}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn x:Name="Header" Header="{Binding TableHeader}" Width="{Binding ElementName=ListViewWidth,Path=ActualWidth}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Label Content="{Binding TableName}"/>
+                                        <DataGrid ItemsSource="{Binding .}" Height="350" AutoGenerateColumns="true" ScrollViewer.CanContentScroll="True"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+
+
 
 </Page>
