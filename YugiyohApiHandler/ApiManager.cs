@@ -44,7 +44,7 @@ namespace YugiyohApiHandler
             return null;
         }
 
-        private async Task<IList<Card>?> Convert(string datas)
+        internal async Task<IList<Card>?> Convert(string datas)
         {
             try
             {
