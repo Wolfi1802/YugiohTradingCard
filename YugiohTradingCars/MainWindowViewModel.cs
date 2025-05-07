@@ -8,7 +8,6 @@ namespace YugiohTradingCars
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
         public ViewModelBase CurrentPage
         {
             set => SetProperty(nameof(CurrentPage), value);
