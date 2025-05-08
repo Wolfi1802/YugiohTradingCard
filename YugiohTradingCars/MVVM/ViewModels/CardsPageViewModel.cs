@@ -44,9 +44,13 @@ namespace YugiohTradingCars.MVVM.ViewModels
             get => GetProperty<Visibility>(nameof(DetailsVisibility));
         }
 
-        public string SearchText
+        public string SearchText //[SK]
         {
-            set => SetProperty(nameof(SearchText), value);
+            set
+            {
+                SetProperty(nameof(SearchText), value);
+                FilterCards();
+            }
             get => GetProperty<string>(nameof(SearchText));
         }
 
@@ -59,10 +63,31 @@ namespace YugiohTradingCars.MVVM.ViewModels
             //TODO[TS] umbauen und als extra fenster anzeigen ?
             this.DetailsVisibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        private void FilterCards() //[SK] Filtert die Suche
+        {
+            //var filteredCards = CardRepository.Instance.Get()
+            //    .Where(card => card.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+            //    .Select(card => new CardViewModel(card))
+            //    .ToList();
+
+            //CardDatas.Clear();
+            //foreach (var card in filteredCards)
+            //{
+            //    CardDatas.Add(card);
+            //}
+
+
+            //foreach
+            //Attribut => Name als vergleich
+            //equals oder contains für den suchabgleich
+            //cardDatas => hinzufügen der ergebnisse
+        }
         public ICommand SearchDatas => new RelayCommand(param =>
         {
             try
             {
+                FilterCards();
                 Debug.WriteLine(SearchText); // [SK] Test für die Ausgabe der Suche
             }
             catch (Exception ex)
@@ -70,7 +95,18 @@ namespace YugiohTradingCars.MVVM.ViewModels
                 Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(SearchDatas)},\nEX :[{ex}]");
             }
         });
-
+        /// <summary>
+        /// Setzt die Suche auf die ursprünlgiche Vollständige Liste zurück,Fehler noch zu beheben: Erst nach löschen der Zeile
+        /// und erneutes klicken auf den "Suche" Button wird die volle Liste wieder angezeigt.
+        /// </summary>
+        private void ResetSearch()
+        {
+            CardDatas.Clear();
+            foreach (Card card in CardRepository.Instance.Get()) //[SK] Stammdatensatz neu laden
+            {
+                CardDatas.Add(new CardViewModel(card));
+            }
+        }
 
         public ICommand ShowDatas => new RelayCommand(param =>
         {
