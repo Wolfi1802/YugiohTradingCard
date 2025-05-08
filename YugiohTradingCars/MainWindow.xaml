@@ -56,17 +56,20 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="Debug" Command="{Binding ShowDebugCommand}" Margin="5"/>
-            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="All Cards" Command="{Binding ShowAllCardsCommand}" Margin="5"/>
-            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="My Cards" Command="{Binding ShowMyCardsCommand}" Margin="5"/>
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="Debug" Command="{Binding ShowDebugCommand}" Margin="5" Visibility="{Binding DebugVisibility}"/>
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="All Cards" Command="{Binding ShowAllCardsCommand}" Margin="5"/>
+            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="My Cards" Command="{Binding ShowMyCardsCommand}" Margin="5"/>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.Column="0" >

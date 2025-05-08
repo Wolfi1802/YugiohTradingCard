@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using YugiohTradingCars.MVVM;
 using YugiohTradingCars.MVVM.ViewModels;
@@ -28,23 +28,30 @@ namespace YugiohTradingCars
             get => GetProperty<string>(nameof(GlobalUserMessage));
         }
 
-        public DebugViewModel HomeViewModel = new DebugViewModel();
+        public Visibility DebugVisibility
+        {
+            set => SetProperty(nameof(DebugVisibility), value);
+            get => GetProperty<Visibility>(nameof(DebugVisibility));
+        }
+
+        public DebugViewModel DebugViewModel = new DebugViewModel();
         public CardsPageViewModel CardViewModel = new CardsPageViewModel();
         public MyCardPageViewModel MyCardViewModel = new MyCardPageViewModel();
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
         {
-            this.CurrentPage = this.HomeViewModel;
-            this.WindowTitle = $"{PROJECT_TITLE} - {Assembly.GetExecutingAssembly()?.GetName()?.Version}";
+            this.CurrentPage = this.CardViewModel;
+            this.WindowTitle = $"{PROJECT_TITLE} - {ProjectConfigs.CurrentVersion}";
             this.eventRepository.MainWindowMessage += this.OnMainWindowMessage;
+            this.DebugVisibility = ProjectConfigs.IsDebugBuild ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public ICommand ShowDebugCommand => new RelayCommand(param =>
         {
             try
             {
-                this.CurrentPage = this.HomeViewModel;
+                this.CurrentPage = this.DebugViewModel;
             }
             catch (Exception ex)
             {
