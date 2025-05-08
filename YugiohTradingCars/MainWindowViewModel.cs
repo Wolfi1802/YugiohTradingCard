@@ -28,8 +28,9 @@ namespace YugiohTradingCars
             get => GetProperty<string>(nameof(GlobalUserMessage));
         }
 
-        public HomePageViewModel HomeViewModel = new HomePageViewModel();
+        public DebugViewModel HomeViewModel = new DebugViewModel();
         public CardsPageViewModel CardViewModel = new CardsPageViewModel();
+        public MyCardPageViewModel MyCardViewModel = new MyCardPageViewModel();
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
@@ -39,7 +40,7 @@ namespace YugiohTradingCars
             this.eventRepository.MainWindowMessage += this.OnMainWindowMessage;
         }
 
-        public ICommand ShowHomeCommand => new RelayCommand(param =>
+        public ICommand ShowDebugCommand => new RelayCommand(param =>
         {
             try
             {
@@ -47,11 +48,11 @@ namespace YugiohTradingCars
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowHomeCommand)},\nEX :[{ex}]");
+                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowDebugCommand)},\nEX :[{ex}]");
             }
         });
 
-        public ICommand ShowTestCommand => new RelayCommand(param =>
+        public ICommand ShowAllCardsCommand => new RelayCommand(param =>
         {
             try
             {
@@ -59,7 +60,19 @@ namespace YugiohTradingCars
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowTestCommand)},\nEX :[{ex}]");
+                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowAllCardsCommand)},\nEX :[{ex}]");
+            }
+        });
+
+        public ICommand ShowMyCardsCommand => new RelayCommand(param =>
+        {
+            try
+            {
+                this.CurrentPage = this.MyCardViewModel;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowMyCardsCommand)},\nEX :[{ex}]");
             }
         });
 
