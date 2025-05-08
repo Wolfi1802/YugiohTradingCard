@@ -9,7 +9,9 @@ namespace YugiohTradingCars
 {
     public class MainWindowViewModel : ViewModelBase
     {
+
         public const string PROJECT_TITLE = "Trading Cards";
+
         public ViewModelBase CurrentPage
         {
             set => SetProperty(nameof(CurrentPage), value);
