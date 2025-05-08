@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YugiohTradingCars.Repositorys
+﻿namespace YugiohTradingCars.Repositorys
 {
     public class EventRepository
     {
+        /// <summary>
+        /// Triggered, when Loading ist done, should be use to switch from splash Page to main page
+        /// </summary>
+        public event EventHandler LoadingDone;
+
         /// <summary>
         /// Trigger to set the Message on Main window 
         /// </summary>
@@ -32,6 +31,11 @@ namespace YugiohTradingCars.Repositorys
         public void TriggerMainWindowMessage(string? message)
         {
             this.MainWindowMessage?.Invoke(this, message);
+        }
+
+        public void TriggerLoadingDone()
+        {
+            this.LoadingDone?.Invoke(this, null);
         }
     }
 }
