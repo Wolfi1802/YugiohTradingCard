@@ -1,14 +1,12 @@
 ﻿using DataBaseBinder;
 using System.Data;
-using System.Data.Common;
 using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
 using YugiohTradingCars.Repositorys;
 
 namespace YugiohTradingCars.MVVM.ViewModels
 {
-    public class HomePageViewModel : ViewModelBase
+    public class DebugViewModel : ViewModelBase
     {
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
         private DBRepository dbRepository { get { return DBRepository.Instance; } }
@@ -29,7 +27,7 @@ namespace YugiohTradingCars.MVVM.ViewModels
         {
             try
             {
-                if(string.IsNullOrEmpty(this.QueryText))
+                if (string.IsNullOrEmpty(this.QueryText))
                 {
                     this.eventRepository.TriggerMainWindowMessage("Query is null");
                     return;
@@ -39,7 +37,7 @@ namespace YugiohTradingCars.MVVM.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"{nameof(HomePageViewModel)},{nameof(ExecuteQuery)},\nEX :[{ex}]");
+                Debug.WriteLine($"{nameof(DebugViewModel)},{nameof(ExecuteQuery)},\nEX :[{ex}]");
             }
         });
     }

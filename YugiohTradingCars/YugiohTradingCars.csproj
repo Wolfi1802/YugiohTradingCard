@@ -50,4 +50,8 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WPFGlobalStyles\Textbox\" />
+  </ItemGroup>
+
 </Project>

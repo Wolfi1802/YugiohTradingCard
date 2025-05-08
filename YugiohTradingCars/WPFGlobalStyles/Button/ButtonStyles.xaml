@@ -19,6 +19,7 @@
 											  HorizontalAlignment="Center"
 											  VerticalAlignment="Center"/>
 					</Border>
+                    
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True" >
 							<Setter TargetName="ButtonBorder" Property="Background" Value="LightBlue"/>

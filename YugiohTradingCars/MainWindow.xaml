@@ -7,7 +7,9 @@
         xmlns:viewModel="clr-namespace:YugiohTradingCars.MVVM.ViewModels"
         xmlns:view="clr-namespace:YugiohTradingCars.MVVM.Pages"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}" 
+        Icon="/Resources/yugiyoh.jpg"
+        Height="450" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -26,12 +28,17 @@
                 </DockPanel>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:HomePageViewModel}">
-                <view:HomePage />
+            <DataTemplate DataType="{x:Type viewModel:DebugViewModel}">
+                <view:DebugPage />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:CardsPageViewModel}">
                 <view:Cards />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewModel:MyCardPageViewModel}">
+                <view:MyCards />
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
@@ -49,15 +56,20 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="Home" Command="{Binding ShowHomeCommand}" Margin="5"/>
-            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ButtonStyle}" Content="Cards" Command="{Binding ShowTestCommand}" Margin="5"/>
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="Debug" Command="{Binding ShowDebugCommand}" Margin="5" Visibility="{Binding DebugVisibility}"/>
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="All Cards" Command="{Binding ShowAllCardsCommand}" Margin="5"/>
+            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="My Cards" Command="{Binding ShowMyCardsCommand}" Margin="5"/>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.Column="0" >
