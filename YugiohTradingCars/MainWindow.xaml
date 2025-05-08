@@ -7,7 +7,9 @@
         xmlns:viewModel="clr-namespace:YugiohTradingCars.MVVM.ViewModels"
         xmlns:view="clr-namespace:YugiohTradingCars.MVVM.Pages"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}" 
+        Icon="/Resources/yugiyoh.jpg"
+        Height="450" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
