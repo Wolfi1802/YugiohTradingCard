@@ -31,18 +31,40 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Content="Show Datas" Command="{Binding ShowDatas}"/>
+        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                Margin="5" Content="Show Datas" 
+                Command="{Binding ShowDatas}">
+        </Button>
 
-        <DockPanel Grid.Column="0" Grid.Row="1">
-            <Label Content="Anzahl der Karten: "></Label>
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Label Content="Geben Sie hier ihre suche ein"/>
+                <TextBox x:Name="Suche" Margin="5" ToolTip="Hier Name eingeben" Background="Transparent"
+                         Text="{Binding SearchText}"/>
+            </Grid>
+            
+            <Button Grid.Row="0" Grid.Column="1" Content="Suchen" Margin="5" Command="{Binding SearchDatas}"/>
+        </Grid>
+
+        <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Label Content="Anzahl der Karten: "/>
             <Label Content="{Binding CardDatas.Count}"/>
         </DockPanel>
 
-        <ListView Grid.Column="0" Grid.Row="2" ItemsSource="{Binding CardDatas}" SelectedItem="{Binding SelectedCard}">
+        <ListView Grid.Column="0" Grid.Row="3" ItemsSource="{Binding CardDatas}" SelectedItem="{Binding SelectedCard}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID">
@@ -141,8 +163,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
-        <Border Grid.Column="1" Grid.Row="2" Visibility="{Binding DetailsVisibility}" BorderBrush="LightBlue" BorderThickness="5" Margin="5">
+
+        <Border Grid.Column="1" Grid.Row="3" Visibility="{Binding DetailsVisibility}" BorderBrush="LightBlue" BorderThickness="5" Margin="5">
             <StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -163,7 +185,7 @@
                 <StackPanel Width="400" Margin="5">
                     <Image Source="{Binding SelectedCard.ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
                 </StackPanel>
-                
+
                 <Button Content="Close Details" Command="{Binding CloseDetails}" Style="{StaticResource ButtonStyle}"/>
             </StackPanel>
         </Border>
