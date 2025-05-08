@@ -14,12 +14,14 @@ namespace YugiohTradingCars.MVVM.ViewModels
         {
             this.ShowDetails(false);//[TS] Default immer überschreiben
 
-            foreach (Card card in CardRepository.Instance.Get())
+            foreach (Card card in CardRepository.Instance.Get()) //[SK] Stammdatensatz GET
             {
                 this.CardDatas.Add(new(card));
             }
         }
-
+        /// <summary>
+        /// UI Datensatz CardDatas
+        /// </summary>
         public ObservableCollection<CardViewModel> CardDatas { set; get; } = new();
 
         public CardViewModel SelectedCard
@@ -42,6 +44,12 @@ namespace YugiohTradingCars.MVVM.ViewModels
             get => GetProperty<Visibility>(nameof(DetailsVisibility));
         }
 
+        public string SearchText
+        {
+            set => SetProperty(nameof(SearchText), value);
+            get => GetProperty<string>(nameof(SearchText));
+        }
+
         /// <summary>
         /// Steuert die Anzeige der Details
         /// </summary>
@@ -51,6 +59,17 @@ namespace YugiohTradingCars.MVVM.ViewModels
             //TODO[TS] umbauen und als extra fenster anzeigen ?
             this.DetailsVisibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
+        public ICommand SearchDatas => new RelayCommand(param =>
+        {
+            try
+            {
+                Debug.WriteLine(SearchText); // [SK] Test für die Ausgabe der Suche
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(SearchDatas)},\nEX :[{ex}]");
+            }
+        });
 
 
         public ICommand ShowDatas => new RelayCommand(param =>
