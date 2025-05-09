@@ -81,7 +81,6 @@ namespace YugiohTradingCars.MVVM.ViewModels
                 if (card.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                 {
                     CardDatas.Add(new CardViewModel(card));
-                    Thread.Sleep(100);
                 }
             }
         }
