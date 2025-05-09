@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
@@ -71,17 +72,18 @@ namespace YugiohTradingCars.MVVM.ViewModels
             //    .Select(card => new CardViewModel(card))
             //    .ToList();
 
-            //CardDatas.Clear();
-            //foreach (var card in filteredCards)
-            //{
-            //    CardDatas.Add(card);
-            //}
+            CardDatas.Clear();
 
-
-            //foreach
-            //Attribut => Name als vergleich
-            //equals oder contains für den suchabgleich
-            //cardDatas => hinzufügen der ergebnisse
+            ObservableCollection<Card> allCards = CardRepository.Instance.Get();
+           
+            foreach (Card card in allCards)
+            {
+                if (card.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                {
+                    CardDatas.Add(new CardViewModel(card));
+                    Thread.Sleep(100);
+                }
+            }
         }
         public ICommand SearchDatas => new RelayCommand(param =>
         {
