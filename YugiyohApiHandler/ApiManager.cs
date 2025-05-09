@@ -26,7 +26,7 @@ namespace YugiyohApiHandler
 
             try
             {
-                HttpResponseMessage result = await this.httpClient.GetAsync(GET_TCG_DATE);
+                HttpResponseMessage result = await this.httpClient.GetAsync(GET_ALL_CARDS);
                 var test = result.EnsureSuccessStatusCode();
 
                 if (result.StatusCode == HttpStatusCode.OK)

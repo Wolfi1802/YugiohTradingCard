@@ -34,17 +34,27 @@ namespace YugiohTradingCars
             get => GetProperty<Visibility>(nameof(DebugVisibility));
         }
 
+        public Visibility GridButtonsVisibility
+        {
+            set => SetProperty(nameof(GridButtonsVisibility), value);
+            get => GetProperty<Visibility>(nameof(GridButtonsVisibility));
+        }
+
         public DebugViewModel DebugViewModel = new DebugViewModel();
         public CardsPageViewModel CardViewModel = new CardsPageViewModel();
         public MyCardPageViewModel MyCardViewModel = new MyCardPageViewModel();
+        public SplashScreenViewModel SplashScreenViewModel = new SplashScreenViewModel();
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
         {
-            this.CurrentPage = this.CardViewModel;
-            this.WindowTitle = $"{PROJECT_TITLE} - {ProjectConfigs.CurrentVersion}";
             this.eventRepository.MainWindowMessage += this.OnMainWindowMessage;
+            this.eventRepository.LoadingDone += this.OnLoadingDone;
+
+            this.GridButtonsVisibility = Visibility.Collapsed;
             this.DebugVisibility = ProjectConfigs.IsDebugBuild ? Visibility.Visible : Visibility.Collapsed;
+            this.CurrentPage = this.SplashScreenViewModel;
+            this.WindowTitle = $"{PROJECT_TITLE} - {ProjectConfigs.CurrentVersion}";
         }
 
         public ICommand ShowDebugCommand => new RelayCommand(param =>
@@ -87,6 +97,13 @@ namespace YugiohTradingCars
         {
             if (!string.IsNullOrEmpty(message))
                 this.GlobalUserMessage = message;
+        }
+
+        private void OnLoadingDone(object sender,EventArgs args)
+        {//TODO[TS] wird das korrekt getriggered auch wenn der lade prozess schneller ist als die ui gebaut wird?...ÜBERPRÜFEN
+            this.eventRepository.LoadingDone -= this.OnLoadingDone;
+            this.CurrentPage = this.CardViewModel;
+            this.GridButtonsVisibility = Visibility.Visible;
         }
     }
 }

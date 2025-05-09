@@ -36,10 +36,14 @@
                 <view:Cards />
             </DataTemplate>
 
-
             <DataTemplate DataType="{x:Type viewModel:MyCardPageViewModel}">
                 <view:MyCards />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SplashScreenViewModel}">
+                <view:SplashScreen />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Window.Resources>
 
@@ -54,7 +58,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid>
+        <Grid Visibility="{Binding GridButtonsVisibility}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
