@@ -44,6 +44,7 @@ namespace YugiohTradingCars
         public CardsPageViewModel CardViewModel = new CardsPageViewModel();
         public MyCardPageViewModel MyCardViewModel = new MyCardPageViewModel();
         public SplashScreenViewModel SplashScreenViewModel = new SplashScreenViewModel();
+        public MyDecksViewModel MyDecksViewModel = new MyDecksViewModel();
         private EventRepository eventRepository { get { return EventRepository.Instance; } }
 
         public MainWindowViewModel()
@@ -90,6 +91,18 @@ namespace YugiohTradingCars
             catch (Exception ex)
             {
                 Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowMyCardsCommand)},\nEX :[{ex}]");
+            }
+        });
+
+        public ICommand ShowMyDecksCommand => new RelayCommand(param =>
+        {
+            try
+            {
+                this.CurrentPage = this.MyDecksViewModel;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{nameof(MainWindowViewModel)},{nameof(ShowMyDecksCommand)},\nEX :[{ex}]");
             }
         });
 

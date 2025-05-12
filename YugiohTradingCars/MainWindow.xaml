@@ -44,6 +44,10 @@
                 <view:SplashScreen />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:MyDecksViewModel}">
+                <view:MyDecks />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Window.Resources>
 
@@ -63,6 +67,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -74,6 +79,8 @@
                     Content="All Cards" Command="{Binding ShowAllCardsCommand}" Margin="5"/>
             <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
                     Content="My Cards" Command="{Binding ShowMyCardsCommand}" Margin="5"/>
+            <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource ButtonStyle}" 
+                    Content="My Decks" Command="{Binding ShowMyDecksCommand}" Margin="5"/>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.Column="0" >
