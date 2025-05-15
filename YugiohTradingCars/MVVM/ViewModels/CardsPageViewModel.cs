@@ -2,7 +2,10 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler.DataModels;

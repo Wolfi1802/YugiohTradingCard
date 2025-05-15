@@ -56,15 +56,15 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0">
-                <Label Margin="10" Content="Geben Sie hier ihre suche ein"/>
-                <TextBox x:Name="Suche" 
-                         BorderBrush="Black" BorderThickness="2"
-                         Margin="5" Background="Transparent"
-                         Style="{StaticResource TextBoxStyle}"
-                         Text="{Binding SearchText}"/>
+                <TextBox x:Name="Suche"
+                         ToolTip="Hier Suche eingeben"
+              BorderBrush="Black" BorderThickness="2"
+              Margin="5" Background="Transparent"
+              Style="{StaticResource TextBoxStyle}"
+              Text="{Binding SearchText}"/>
             </Grid>
 
-            
+
             <Button Grid.Row="0" Grid.Column="1" Content="Suchen" 
                     FontSize="15"
                     Margin="5"
@@ -112,17 +112,17 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Level">
+                    <GridViewColumn  Header="Level">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Level}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Level">
+                    <GridViewColumn Header="Card Text">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Card.Desc}"/>
+                                <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
