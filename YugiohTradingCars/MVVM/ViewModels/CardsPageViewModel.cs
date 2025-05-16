@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using YugiohTradingCars.DataModels;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler.DataModels;
@@ -19,7 +21,18 @@ namespace YugiohTradingCars.MVVM.ViewModels
             {
                 this.CardDatas.Add(new(card));
             }
+
+            foreach (Deck deck in DeckRepository.Instance.GetDecks()) 
+            {
+                this.AddDecksItemsSource.Add(new() { DisplayText = $"Füge Karte \"{deck.Name}\" hinzu", Deck = deck, Command = this.GetRelayCommand(deck) });
+            }
         }
+
+        /// <summary>
+        /// ItemsSource um Karten zum Deck hinzuzufügen
+        /// </summary>
+        public ObservableCollection<DeckMenuItem> AddDecksItemsSource { set; get; } = new();
+
         /// <summary>
         /// UI Datensatz CardDatas
         /// </summary>
@@ -83,6 +96,31 @@ namespace YugiohTradingCars.MVVM.ViewModels
                     CardDatas.Add(new CardViewModel(card));
                 }
             }
+        }
+
+        private RelayCommand GetRelayCommand(Deck deck)
+        {
+            RelayCommand command = new(param =>
+            {
+                try
+                {
+                    if (this.SelectedCard is null)
+                        return;
+                    else
+                    {
+
+                        if (deck is not null)
+                        {
+                            DeckRepository.Instance.AddCardToDeck(deck.Id, this.SelectedCard.Card);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(GetRelayCommand)},\nEX :[{ex}]");
+                }
+            });
+            return command;
         }
         public ICommand SearchDatas => new RelayCommand(param =>
         {

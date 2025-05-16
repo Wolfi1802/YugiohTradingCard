@@ -51,6 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="WPFGlobalStyles\MenuItem\" />
     <Folder Include="WPFGlobalStyles\Textbox\" />
   </ItemGroup>
 

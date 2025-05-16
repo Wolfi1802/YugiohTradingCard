@@ -13,7 +13,6 @@
         <ResourceDictionary>
             <viewModel:CardsPageViewModel x:Key="ViewModel"/>
 
-            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -78,6 +77,18 @@
         </DockPanel>
 
         <ListView Grid.Column="0" Grid.Row="3" ItemsSource="{Binding CardDatas}" SelectedItem="{Binding SelectedCard}">
+            <ListView.ContextMenu>
+                <ContextMenu ItemsSource="{Binding AddDecksItemsSource}" >
+                    <ContextMenu.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header="{Binding DisplayText}" 
+                                      Command="{Binding Command}" 
+                                      Style="{StaticResource MenuItemStyle}"/>
+                        </DataTemplate>
+                    </ContextMenu.ItemTemplate>
+                    
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID">

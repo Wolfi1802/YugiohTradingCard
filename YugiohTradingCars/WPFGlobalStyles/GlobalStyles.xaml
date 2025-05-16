@@ -3,6 +3,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/WPFGlobalStyles/Button/ButtonStyles.xaml"/>
         <ResourceDictionary Source="/WPFGlobalStyles/Textbox/TextboxStyles.xaml"/>
+        <ResourceDictionary Source="/WPFGlobalStyles/MenuItem/MenuItemStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
