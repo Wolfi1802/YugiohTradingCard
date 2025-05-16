@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using YugiohTradingCars.DataModels;
+using System.Windows.Media;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler.DataModels;
