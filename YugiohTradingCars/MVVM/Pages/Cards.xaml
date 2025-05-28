@@ -96,7 +96,7 @@
                     <GridViewColumn Header="ID">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Id}"/>
+                                <Label Content="{Binding Card.Id}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -104,7 +104,7 @@
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Name}"/>
+                                <Label Content="{Binding Card.Name}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -112,7 +112,7 @@
                     <GridViewColumn Header="Atk">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Atk}"/>
+                                <Label Content="{Binding Card.Atk}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -120,7 +120,7 @@
                     <GridViewColumn Header="Def">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Def}"/>
+                                <Label Content="{Binding Card.Def}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -128,14 +128,14 @@
                     <GridViewColumn Header="Level">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Level}"/>
+                                <Label Content="{Binding Card.Level}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Level">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Card.Desc}"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Card.Desc}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -144,7 +144,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <ListView ItemsSource="{Binding Card.CardPrices}">
+                                    <ListView ItemsSource="{Binding Card.CardPrices}" Background="{Binding CardBackgroundColor}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="AmazonPrice">
