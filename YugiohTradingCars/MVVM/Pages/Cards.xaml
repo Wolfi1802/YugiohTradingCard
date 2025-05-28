@@ -70,7 +70,7 @@
                          FontSize="15"
                          Background="Transparent"
                          Style="{StaticResource TextBoxStyle}"
-                         Text="{Binding SearchText}"/>
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">

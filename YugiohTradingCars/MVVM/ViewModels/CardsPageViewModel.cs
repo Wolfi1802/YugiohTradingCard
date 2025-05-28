@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using YugiohTradingCars.DataModels;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
@@ -13,20 +11,15 @@ namespace YugiohTradingCars.MVVM.ViewModels
 {
     public class CardsPageViewModel : ViewModelBase
     {
-        public CardsPageViewModel()
-        {
-            this.ShowDetails(false);//[TS] Default immer überschreiben
+        /// <summary>
+        /// MS Delay für die Suche
+        /// </summary>
+        private const int MILISECONDS_DELAY_FOR_SEARCH = 400;
 
-            foreach (Card card in CardRepository.Instance.Get()) //[SK] Stammdatensatz GET
-            {
-                this.CardDatas.Add(new(card));
-            }
-
-            foreach (Deck deck in DeckRepository.Instance.GetDecks()) 
-            {
-                this.AddDecksItemsSource.Add(new() { DisplayText = $"Füge Karte \"{deck.Name}\" hinzu", Deck = deck, Command = this.GetRelayCommand(deck) });
-            }
-        }
+        /// <summary>
+        /// Instanz zum abbrechen asynchroner vorgänge
+        /// </summary>
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         /// <summary>
         /// ItemsSource um Karten zum Deck hinzuzufügen
@@ -62,10 +55,25 @@ namespace YugiohTradingCars.MVVM.ViewModels
         {
             set
             {
-                SetProperty(nameof(SearchText), value);
-                FilterCards();
+                this.ResetSearch(value);
+                base.SetProperty(nameof(SearchText), value);
             }
-            get => GetProperty<string>(nameof(SearchText));
+            get => base.GetProperty<string>(nameof(SearchText));
+        }
+
+        public CardsPageViewModel()
+        {
+            this.ShowDetails(false);//[TS] Default immer überschreiben
+
+            foreach (Card card in CardRepository.Instance.Get()) //[SK] Stammdatensatz GET
+            {
+                this.CardDatas.Add(new(card));
+            }
+
+            foreach (Deck deck in DeckRepository.Instance.GetDecks())
+            {
+                this.AddDecksItemsSource.Add(new() { DisplayText = $"Füge Karte \"{deck.Name}\" hinzu", Deck = deck, Command = this.GetRelayCommand(deck) });
+            }
         }
 
         /// <summary>
@@ -78,7 +86,28 @@ namespace YugiohTradingCars.MVVM.ViewModels
             this.DetailsVisibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void FilterCards() //[SK] Filtert die Suche
+        private async void ResetSearch(string searchText)
+        {
+            try
+            {
+                if (await this.CanSearch(searchText))
+                {
+                    this.FilterCards(searchText);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[{nameof(CardsPageViewModel)}] [{nameof(ResetSearch)}] [{ex.Message}]");
+            }
+        }
+
+        private async Task<bool> CanSearch(string searchText)
+        {
+            await Task.Delay(MILISECONDS_DELAY_FOR_SEARCH);
+            return searchText.Equals(this.SearchText);
+        }
+
+        private void FilterCards(string searchText) //[SK] Filtert die Suche
         {
             //var filteredCards = CardRepository.Instance.Get()
             //    .Where(card => card.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
@@ -88,7 +117,7 @@ namespace YugiohTradingCars.MVVM.ViewModels
             CardDatas.Clear();
 
             ObservableCollection<Card> allCards = CardRepository.Instance.Get();
-           
+
             foreach (Card card in allCards)
             {
                 if (card.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
@@ -122,18 +151,7 @@ namespace YugiohTradingCars.MVVM.ViewModels
             });
             return command;
         }
-        public ICommand SearchDatas => new RelayCommand(param =>
-        {
-            try
-            {
-                FilterCards();
-                Debug.WriteLine(SearchText); // [SK] Test für die Ausgabe der Suche
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(SearchDatas)},\nEX :[{ex}]");
-            }
-        });
+
         /// <summary>
         /// Setzt die Suche auf die ursprünlgiche Vollständige Liste zurück,Fehler noch zu beheben: Erst nach löschen der Zeile
         /// und erneutes klicken auf den "Suche" Button wird die volle Liste wieder angezeigt.
