@@ -4,28 +4,25 @@
 	<Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
 		<Setter Property="Foreground" Value="Black" />
 		<Setter Property="BorderBrush" Value="Black"/>
-		<Setter Property="BorderThickness" Value="2"/>
-		<Setter Property="OverridesDefaultStyle" Value="True"/>
-		<Setter Property="FontSize" Value="32"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontSize" Value="15"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
-					<Border BorderBrush="{TemplateBinding BorderBrush}"
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
-								CornerRadius="10"
+								CornerRadius="5"
 								x:Name="ButtonBorder">
-
-						<ContentPresenter x:Name="content"
+                        <ContentPresenter x:Name="content" Margin="5,0,5,0"
 											  HorizontalAlignment="Center"
 											  VerticalAlignment="Center"/>
 					</Border>
                     
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver" Value="True" >
-							<Setter TargetName="ButtonBorder" Property="Background" Value="LightBlue"/>
-						</Trigger>
-
-					</ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" >
+                            <Setter TargetName="ButtonBorder" Property="Background" Value="LightBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
