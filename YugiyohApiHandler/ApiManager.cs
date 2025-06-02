@@ -9,7 +9,14 @@ namespace YugiyohApiHandler
     /// </summary>
     public class ApiManager
     {
-        public const string GET_ALL_CARDS = "https://db.ygoprodeck.com/api/v7/cardinfo.php";//13705 cards
+        #region  API Konstanten
+
+        /// <summary>
+        /// Alle Karten die die api besitzt (13705)
+        /// </summary>
+        public const string GET_ALL_CARDS = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
+
+        #endregion
 
         private HttpClient httpClient;
         public ApiManager()

@@ -46,29 +46,31 @@
 
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0">
-                <TextBox x:Name="Suche"
-                         ToolTip="Hier Suche eingeben"
-              BorderBrush="Black" BorderThickness="2"
-              Margin="5" Background="Transparent"
-              Style="{StaticResource TextBoxStyle}"
-              Text="{Binding SearchText}"/>
-            </Grid>
+            <Label Content="Suche:"
+                       Grid.Row="0" 
+                       Grid.Column="0"
+                       FontSize="15"
+                       Margin="5"/>
 
-
-            <Button Grid.Row="0" Grid.Column="1" Content="Suchen" 
-                    FontSize="15"
-                    Margin="5"
-                    Style="{StaticResource  ButtonStyle}"             
-                    Command="{Binding SearchDatas}"/>
+            <TextBox x:Name="Suche"
+                         Grid.Row="0" 
+                         Grid.Column="1"
+                         BorderBrush="Black" 
+                         BorderThickness="2"
+                         Margin="5" 
+                         FontSize="15"
+                         Background="Transparent"
+                         Style="{StaticResource TextBoxStyle}"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
@@ -86,7 +88,7 @@
                                       Style="{StaticResource MenuItemStyle}"/>
                         </DataTemplate>
                     </ContextMenu.ItemTemplate>
-                    
+
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
@@ -94,7 +96,7 @@
                     <GridViewColumn Header="ID">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Id}"/>
+                                <Label Content="{Binding Card.Id}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -102,7 +104,7 @@
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Name}"/>
+                                <Label Content="{Binding Card.Name}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -110,7 +112,7 @@
                     <GridViewColumn Header="Atk">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Atk}"/>
+                                <Label Content="{Binding Card.Atk}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -118,7 +120,7 @@
                     <GridViewColumn Header="Def">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Def}"/>
+                                <Label Content="{Binding Card.Def}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -126,14 +128,14 @@
                     <GridViewColumn  Header="Level">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Level}"/>
+                                <Label Content="{Binding Card.Level}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Card Text">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }"/>
+                                <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -142,7 +144,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <ListView ItemsSource="{Binding Card.CardPrices}">
+                                    <ListView ItemsSource="{Binding Card.CardPrices}" Background="{Binding CardBackgroundColor}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="AmazonPrice">
@@ -222,5 +224,5 @@
         </Border>
 
     </Grid>
-  
+
 </Page>
