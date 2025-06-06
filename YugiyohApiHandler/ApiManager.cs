@@ -12,13 +12,13 @@ namespace YugiyohApiHandler
         #region  API Konstanten
 
         /// <summary>
-        /// Alle Karten die die api besitzt (13705)
+        /// Alle Karten die die api besitzt (13705) https://db.ygoprodeck.com/api/v7/cardinfo.php
         /// </summary>
         public const string GET_ALL_CARDS = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
 
         #endregion
 
-        private HttpClient httpClient;
+        private HttpClient httpClient; 
         public ApiManager()
         {
             this.httpClient = new();

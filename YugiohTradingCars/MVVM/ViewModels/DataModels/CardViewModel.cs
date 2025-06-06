@@ -25,7 +25,7 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
             if (card is not null && card.CardImages is not null && card.CardImages.Count >= 1)
                 this.ImageUrl = card.CardImages[0].ImageUrl;
         }
-        static List<string> test = new();
+        
         private void PrepareBackground(Card card)
         {
             if (card is not null)
@@ -33,12 +33,12 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
 
                 switch (card.Type)
                 {//TODO[TS] refactoring als enum
-                    case "Trap Card": this.CardBackgroundColor = Brushes.Red; break;
-                    case "Spell Card": this.CardBackgroundColor = Brushes.LightBlue; break;
-                    case "Normal Monster": this.CardBackgroundColor = Brushes.Red; break;
-                    case "Effect Monster": this.CardBackgroundColor = Brushes.Red; break;
-                    case "XYZ Monster": this.CardBackgroundColor = Brushes.Red; break;
-                    case "Pendulum Effect Monster": this.CardBackgroundColor = Brushes.Red; break;
+                    case "Trap Card": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 128, 0, 128)); this.Opacity = 0.5; break;// Violett
+                    case "Spell Card": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0)); this.Opacity = 0.5; break;// Grün
+                    case "Normal Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 255, 255, 0)); this.Opacity = 0.5; break;// Gelb
+                    case "Effect Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 165, 42, 42)); this.Opacity = 0.5; break;// Braun
+                    case "XYZ Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)); this.Opacity = 0.5; break;// Schwarz
+                    case "Pendulum Effect Monster": this.CardBackgroundColor = Brushes.Aquamarine; break;
                     case "Synchro Pendulum Effect Monster": this.CardBackgroundColor = Brushes.Red; break;
                     case "Synchro Monster": this.CardBackgroundColor = Brushes.Red; break;
                     case "Tuner Monster": this.CardBackgroundColor = Brushes.Red; break;
@@ -88,5 +88,6 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
             set => SetProperty(nameof(CardBackgroundColor), value);
             get => GetProperty<Brush>(nameof(CardBackgroundColor));
         }
+        public double Opacity { get; private set; }
     }
 }

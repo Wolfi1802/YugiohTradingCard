@@ -7,6 +7,10 @@ using System.Windows.Media;
 using YugiohTradingCars.MVVM.ViewModels.DataModels;
 using YugiohTradingCars.Repositorys;
 using YugiyohApiHandler.DataModels;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Controls;
 
 namespace YugiohTradingCars.MVVM.ViewModels
 {
@@ -74,6 +78,17 @@ namespace YugiohTradingCars.MVVM.ViewModels
             foreach (Deck deck in DeckRepository.Instance.GetDecks())
             {
                 this.AddDecksItemsSource.Add(new() { DisplayText = $"Füge Karte \"{deck.Name}\" hinzu", Deck = deck, Command = this.GetRelayCommand(deck) });
+            }
+
+             this.SortIdCommand = new RelayCommand(SortId);
+        }
+        
+        public ICommand SortIdCommand {  get; set; }
+        private void SortId(object Text)
+        {
+            if(Text is ObservableCollection<CardViewModel> parsed)
+            {
+                this.CardDatas = parsed;
             }
         }
 
@@ -189,6 +204,9 @@ namespace YugiohTradingCars.MVVM.ViewModels
             {
                 Debug.WriteLine($"{nameof(CardsPageViewModel)},{nameof(CloseDetails)},\nEX :[{ex}]");
             }
+
+
         });
+
     }
 }

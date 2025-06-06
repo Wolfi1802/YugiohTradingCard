@@ -93,7 +93,8 @@
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="ID" Command="{Binding SortIdCommand}" CommandParameter="{Binding CardDatas}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Id}" Background="{Binding CardBackgroundColor}"/>
@@ -101,7 +102,9 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Name">
+                  
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Name" Command="{Binding SortName}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Name}" Background="{Binding CardBackgroundColor}"/>
@@ -109,7 +112,8 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Atk">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Atk" Command="{Binding SortAtk}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Atk}" Background="{Binding CardBackgroundColor}"/>
@@ -117,7 +121,8 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Def">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Def" Command="{Binding SortDef}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Def}" Background="{Binding CardBackgroundColor}"/>
@@ -125,14 +130,16 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn  Header="Level">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Level" Command="{Binding SortLevel}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Card.Level}" Background="{Binding CardBackgroundColor}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Card Text">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Card Text" Command="{Binding SortText}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }" Background="{Binding CardBackgroundColor}"/>
@@ -140,7 +147,8 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Preise">
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Preis" Command="{Binding SortPrice}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
