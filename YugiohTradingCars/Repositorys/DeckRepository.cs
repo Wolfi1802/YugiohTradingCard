@@ -22,7 +22,8 @@ namespace YugiohTradingCars.Repositorys
 
         private DeckRepository()
         {
-
+            if (this.Decks is not null && this.Decks.Count == 0)
+                this.Decks.Add(new() { Name = "DefaultDeck" });
         }
 
         /// <summary>
