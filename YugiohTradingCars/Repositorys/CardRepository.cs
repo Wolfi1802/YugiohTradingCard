@@ -33,6 +33,8 @@ namespace YugiohTradingCars.Repositorys
         private async Task LoadDatas()
         {
             CardData = new(await ApiManager.Get());
+            CardData = new(CardData.OrderBy(x => x.Type));
+
             EventRepository.Instance.TriggerLoadingDone();
         }
 
