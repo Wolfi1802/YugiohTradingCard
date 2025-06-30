@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows.Media;
+using YugiohTradingCars.Helper;
 using YugiyohApiHandler.DataModels;
 
 namespace YugiohTradingCars.MVVM.ViewModels.DataModels
@@ -8,9 +9,11 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
     {
 
         private readonly Card card;
+        private readonly BrushHelper brushHelper;
         public Card Card { get { return this.card; } }
         public CardViewModel(Card card)
         {
+            this.brushHelper = new();
             this.card = card;
             this.PrepareCard(card);
             this.PrepareBackground(card);
@@ -25,7 +28,7 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
             if (card is not null && card.CardImages is not null && card.CardImages.Count >= 1)
                 this.ImageUrl = card.CardImages[0].ImageUrl;
         }
-        
+
         private void PrepareBackground(Card card)
         {
             if (card is not null)
@@ -33,11 +36,15 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
 
                 switch (card.Type)
                 {//TODO[TS] refactoring als enum
-                    case "Trap Card": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 128, 0, 128)); this.Opacity = 0.5; break;// Violett
-                    case "Spell Card": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0)); this.Opacity = 0.5; break;// Grün
-                    case "Normal Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 255, 255, 0)); this.Opacity = 0.5; break;// Gelb
-                    case "Effect Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 165, 42, 42)); this.Opacity = 0.5; break;// Braun
-                    case "XYZ Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)); this.Opacity = 0.5; break;// Schwarz
+                    case "Trap Card":
+                        this.CardBackgroundColor =
+                            this.brushHelper.GetLinearGradientBrush(Colors.Red, Colors.Black, 
+                            new(0, 0), new(0, 2)); break;
+                    //new SolidColorBrush(Color.FromArgb(128, 128, 0, 128)); break;// Violett
+                    case "Spell Card": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 255, 0)); break;// Grün
+                    case "Normal Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 255, 255, 0)); break;// Gelb
+                    case "Effect Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 165, 42, 42)); break;// Braun
+                    case "XYZ Monster": this.CardBackgroundColor = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)); break;// Schwarz
                     case "Pendulum Effect Monster": this.CardBackgroundColor = Brushes.Aquamarine; break;
                     case "Synchro Pendulum Effect Monster": this.CardBackgroundColor = Brushes.Red; break;
                     case "Synchro Monster": this.CardBackgroundColor = Brushes.Red; break;
@@ -71,6 +78,7 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
 
         }
 
+
         /// <summary>
         /// Bild für die UI
         /// </summary>
@@ -88,6 +96,7 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
             set => SetProperty(nameof(CardBackgroundColor), value);
             get => GetProperty<Brush>(nameof(CardBackgroundColor));
         }
+
         public double Opacity { get; private set; }
     }
 }

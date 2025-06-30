@@ -78,7 +78,28 @@
             <Label Content="{Binding CardDatas.Count}"/>
         </DockPanel>
 
-        <ListView Grid.Column="0" Grid.Row="3" ItemsSource="{Binding CardDatas}" SelectedItem="{Binding SelectedCard}">
+        <ListView Grid.Column="0" Grid.Row="3" 
+                  ItemsSource="{Binding CardDatas}" 
+                  SelectedItem="{Binding SelectedCard}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="{Binding CardBackgroundColor}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="false">
+                            <Setter Property="Background" Value="{Binding CardBackgroundColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Background" Value="white"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ContextMenu>
                 <ContextMenu ItemsSource="{Binding AddDecksItemsSource}" >
                     <ContextMenu.ItemTemplate>
@@ -97,7 +118,7 @@
                         <GridViewColumnHeader Content="ID" Command="{Binding SortIdCommand}" CommandParameter="{Binding CardDatas}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Id}" Background="{Binding CardBackgroundColor}"/>
+                                <Label Content="{Binding Card.Id}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -107,7 +128,7 @@
                         <GridViewColumnHeader Content="Name" Command="{Binding SortName}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Name}" Background="{Binding CardBackgroundColor}"/>
+                                <Label Content="{Binding Card.Name}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -116,7 +137,7 @@
                         <GridViewColumnHeader Content="Atk" Command="{Binding SortAtk}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Atk}" Background="{Binding CardBackgroundColor}"/>
+                                <Label Content="{Binding Card.Atk}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -125,7 +146,7 @@
                         <GridViewColumnHeader Content="Def" Command="{Binding SortDef}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Def}" Background="{Binding CardBackgroundColor}"/>
+                                <Label Content="{Binding Card.Def}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -134,7 +155,7 @@
                         <GridViewColumnHeader Content="Level" Command="{Binding SortLevel}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Level}" Background="{Binding CardBackgroundColor}"/>
+                                <Label Content="{Binding Card.Level}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -142,7 +163,7 @@
                         <GridViewColumnHeader Content="Card Text" Command="{Binding SortText}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }" Background="{Binding CardBackgroundColor}"/>
+                                <TextBlock TextWrapping="Wrap" MaxWidth="600" Margin="5" Text="{Binding Card.Desc }"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -152,7 +173,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <ListView ItemsSource="{Binding Card.CardPrices}" Background="{Binding CardBackgroundColor}">
+                                    <ListView ItemsSource="{Binding Card.CardPrices}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="AmazonPrice">
