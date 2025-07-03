@@ -72,22 +72,18 @@
                          Style="{StaticResource TextBoxStyle}"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-
         <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
             <Label Content="Anzahl der Karten: "/>
             <Label Content="{Binding CardDatas.Count}"/>
         </DockPanel>
-
         <ListView Grid.Column="0" Grid.Row="3" 
                   ItemsSource="{Binding CardDatas}" 
                   SelectedItem="{Binding SelectedCard}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="{Binding CardBackgroundColor}" />
+                    <Setter Property="Foreground" Value="{Binding CardTextColor}"/>
                     <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="LightGray"/>
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="false">
                             <Setter Property="Background" Value="{Binding CardBackgroundColor}"/>
                         </Trigger>
@@ -109,7 +105,6 @@
                                       Style="{StaticResource MenuItemStyle}"/>
                         </DataTemplate>
                     </ContextMenu.ItemTemplate>
-
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
@@ -118,44 +113,47 @@
                         <GridViewColumnHeader Content="ID" Command="{Binding SortIdCommand}" CommandParameter="{Binding CardDatas}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Id}"/>
+                                <TextBlock Text="{Binding Card.Id}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
-                  
-                    <GridViewColumn>
+                    <GridViewColumn Width="200">
                         <GridViewColumnHeader Content="Name" Command="{Binding SortName}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Name}"/>
+                                <TextBlock Text="{Binding Card.Name}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
                     <GridViewColumn>
                         <GridViewColumnHeader Content="Atk" Command="{Binding SortAtk}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Atk}"/>
+                                <TextBlock Text="{Binding Card.Atk}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
                     <GridViewColumn>
                         <GridViewColumnHeader Content="Def" Command="{Binding SortDef}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Def}"/>
+                                <TextBlock Text="{Binding Card.Def}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
                     <GridViewColumn>
                         <GridViewColumnHeader Content="Level" Command="{Binding SortLevel}"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="{Binding Card.Level}"/>
+                                <TextBlock Text="{Binding Card.Level}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Type" Command="{Binding SortAttribute}"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Card.Attribute}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
