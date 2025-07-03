@@ -5,5 +5,6 @@
         <ResourceDictionary Source="/WPFGlobalStyles/Textbox/TextboxStyles.xaml"/>
         <ResourceDictionary Source="/WPFGlobalStyles/MenuItem/MenuItemStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
+    
+    <BitmapImage x:Key="SplashScreenDefault" UriSource="/Resources/yugi.png"/>
 </ResourceDictionary>

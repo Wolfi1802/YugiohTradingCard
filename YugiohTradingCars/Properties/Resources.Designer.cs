@@ -63,6 +63,16 @@ namespace YugiohTradingCars.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] yugi {
+            get {
+                object obj = ResourceManager.GetObject("yugi", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] yugiyoh {
             get {
                 object obj = ResourceManager.GetObject("yugiyoh", resourceCulture);

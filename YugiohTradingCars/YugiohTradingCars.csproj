@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\yugi.png" />
     <None Remove="Resources\yugiyoh.jpg" />
   </ItemGroup>
 
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\yugi.png" />
     <Resource Include="Resources\yugiyoh.jpg" />
   </ItemGroup>
 
