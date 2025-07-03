@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YugiohTradingCars.MVVM.Pages"
       xmlns:viewModel="clr-namespace:YugiohTradingCars.MVVM.ViewModels"
+      xmlns:chart="clr-namespace:YugiohTradingCars.WPFGlobalStyles.Charts"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Cards">
@@ -166,60 +167,6 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn>
-                        <GridViewColumnHeader Content="Preis" Command="{Binding SortPrice}"/>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <ListView ItemsSource="{Binding Card.CardPrices}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Header="AmazonPrice">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <Label Content="{Binding AmazonPrice}"/>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-
-                                                <GridViewColumn Header="CardmarketPrice">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <Label Content="{Binding CardmarketPrice}"/>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-
-                                                <GridViewColumn Header="CoolstuffincPrice">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <Label Content="{Binding CoolstuffincPrice}"/>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-
-                                                <GridViewColumn Header="EbayPrice">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <Label Content="{Binding EbayPrice}"/>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-
-                                                <GridViewColumn Header="TcgplayerPrice">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <Label Content="{Binding TcgplayerPrice}"/>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -246,6 +193,7 @@
                     <Image Source="{Binding SelectedCard.ImageUrl, FallbackValue='pack://application:,,,/resources/yugiyoh.jpg'}" Stretch="Uniform" />
                 </StackPanel>
 
+                <chart:ColumChart DataContext="{Binding SelectedCard.CardPrices}"/>
                 <Button Content="Close Details" Command="{Binding CloseDetails}" Style="{StaticResource ButtonStyle}"/>
             </StackPanel>
         </Border>

@@ -40,12 +40,23 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
             get => base.GetProperty<Brush>(nameof(CardTextColor));
         }
 
+        /// <summary>
+        /// Preise der versch. Börsen
+        /// </summary>
+        public CardPrice CardPrices
+        {
+            set => base.SetProperty(nameof(CardPrices), value);
+            get => base.GetProperty<CardPrice>(nameof(CardPrices));
+        }
+
+
         public CardViewModel(Card card)
         {
             this.brushHelper = new();
             this.card = card;
-            this.PrepareCard(card);
+            this.PrepareImage(card);
             this.PrepareBackground(card);
+            this.PreparePrices(card);
         }
 
 
@@ -53,7 +64,7 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
         /// Diese Methode casted Daten in diese Instanz
         /// </summary>
         /// <param name="card"></param>
-        private void PrepareCard(Card card)
+        private void PrepareImage(Card card)
         {
             if (card is not null && card.CardImages is not null && card.CardImages.Count >= 1)
                 this.ImageUrl = card.CardImages[0].ImageUrl;
@@ -334,6 +345,15 @@ namespace YugiohTradingCars.MVVM.ViewModels.DataModels
 
             }
 
+        }
+
+
+        private void PreparePrices(Card card)
+        {
+            if (card is not null && card.CardPrices is not null && card.CardPrices.Count >= 1)
+            {
+                this.CardPrices = card.CardPrices[0];
+            }
         }
     }
 }

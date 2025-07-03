@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="YugiohTradingCars.WPFGlobalStyles.Charts.ColumChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YugiohTradingCars.WPFGlobalStyles.Charts"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WPFGlobalStyles/GlobalStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Canvas  DataContext="{Binding .}" Background="White" Height="50">
+        <StackPanel Canvas.Left="10" Canvas.Bottom="0" >
+            <Rectangle Width="20" Height="{Binding AmazonPrice}" Fill="Red" />
+            <Label Content="{Binding AmazonPrice, Converter={StaticResource PriceShartConvert}}"/>
+        </StackPanel>
+
+        <StackPanel Canvas.Left="60" Canvas.Bottom="0" >
+            <Rectangle Width="20" Height="{Binding CardmarketPrice}" Fill="Green" />
+            <Label Content="{Binding CardmarketPrice, Converter={StaticResource PriceShartConvert}}"/>
+        </StackPanel>
+
+        <StackPanel Canvas.Left="110" Canvas.Bottom="0" >
+            <Rectangle  Width="20" Height="{Binding CoolstuffincPrice}" Fill="Blue" />
+            <Label Content="{Binding CoolstuffincPrice, Converter={StaticResource PriceShartConvert}}"/>
+        </StackPanel>
+
+        <StackPanel Canvas.Left="160" Canvas.Bottom="0" >
+            <Rectangle  Width="20" Height="{Binding TcgplayerPrice}" Fill="Orange" />
+            <Label Content="{Binding TcgplayerPrice, Converter={StaticResource PriceShartConvert}}"/>
+        </StackPanel>
+
+        <StackPanel Canvas.Left="210" Canvas.Bottom="0">
+            <Rectangle  Width="20" Height="{Binding EbayPrice}" Fill="Purple"/>
+            <Label Content="{Binding EbayPrice, Converter={StaticResource PriceShartConvert}}"/>
+        </StackPanel>
+    </Canvas>
+</UserControl>
